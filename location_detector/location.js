@@ -12,30 +12,39 @@ btn.addEventListener("click", () => {
     btn.innerText = "Your Browser not support the api";
   }
 });
-
 async function onSuccess(position) {
   let { latitude, longitude } = position.coords;
   console.log(latitude);
   console.log(longitude);
-  let response = await fetch(
+  fetch(
     ` https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=a985d5b5eb8a4862a040020cb5b208e5`
-  );
-  let data = response.json();
-  console.log(data);
-  //safety check
-  if (!data.results || data.results.length == 0) {
-    console.log("No Result Found");
-    btn.innerText = "No Result Found";
-    return;
-  }
-
-  let allDetails = data.results[0].components;
-  console.log(allDetails);
-  let { city, country, postCode } = allDetails;
-  console.log(`City:${city}`);
-  console.log(`Country:${country}`);
-  console.log(`PostCode:${postCode}`);
-  btn.innerText = `${city}, ${country}, ${postCode}`;
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      console.log(data.status);
+      let allDetails = data.results[0].components;
+      console.log(allDetails);
+      let { city, country, postcode } = allDetails;
+      console.log(`City:${city}`);
+      console.log(`Country:${country}`);
+      console.log(`PostCode:${postcode}`);
+      setInterval(() => {
+        let day = new Date();
+        console.log(day.toTimeString());
+        document.querySelector(
+          ".date"
+        ).textContent = `Date:${day.toLocaleDateString()}`;
+        document.querySelector(
+          ".time"
+        ).textContent = `Time:${day.toLocaleTimeString()}`;
+        document.querySelector(".country").textContent = `Country:${country}`;
+        document.querySelector(".city").textContent = `City:${city}`;
+        document.querySelector(".pin").textContent = `PinCode:${postcode}`;
+      });
+      document.querySelector(".location").style.display = "block";
+      document.querySelector(".btn").style.display = "none";
+    });
 }
 function onError(error) {
   if (error.code == 1) {
