@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body{
-    background-color: rgb(238, 230, 230);
+    background-color:rgb(253,243,243);
 }
 .card{
     display: inline-block;
@@ -12,7 +12,7 @@ body{
     margin-top: 10px;
     cursor: pointer;
     border: 20px solid rgb(253,243,243);
-    border-radius: 10px;
+    border-radius: 20px;
 }
 .card:hover{
     background-color: white;
@@ -59,4 +59,14 @@ body{
 .distance{
     font-size: 11px;
     font-weight: bold;
+}
+.image{
+    position: relative;
+}
+.OFF{
+    position: absolute;
+    background-color: rgba(173, 18, 25, 0.8);
+    left:3px;
+    bottom:20px;
+    color: white;
 }
